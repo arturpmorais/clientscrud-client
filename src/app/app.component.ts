@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ClientGroup } from './client-group';
-import { ClientGroupService } from './client-group.service';
+import { ClientGroup } from './interfaces/client-group';
+import { ClientGroupService } from './services/client-group.service';
 
 @Component({
   selector: 'app-root',
@@ -20,13 +20,13 @@ export class AppComponent implements OnInit {
   }
 
   public getClientGroups(): void {
-    this.clientGroupService.getClientGroups().subscribe(
-      (response: ClientGroup[]) => {
+    this.clientGroupService.getClientGroups().subscribe({
+      next: (response: ClientGroup[]) => {
         this.clientGroups = response
       },
-      (error: HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         alert(error.message)
       }
-    )
+    })
   }
 }
