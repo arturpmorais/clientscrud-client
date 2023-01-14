@@ -1,7 +1,7 @@
 <h1>AppComponent</h1>
 <div class="row">
   <div *ngFor="let clientGroup of clientGroups" class="col">
-    <h5>{{ clientGroup.name }}</h5>
-    <h6>{{ clientGroup.active.toString() }}</h6>
+    <h5>Nome: {{ clientGroup.name }}</h5>
+    <h6>Ativo: {{ clientGroup.active.toString() }}</h6>
   </div>
 </div>
