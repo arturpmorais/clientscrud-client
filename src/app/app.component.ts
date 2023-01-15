@@ -50,6 +50,14 @@ export class AppComponent implements OnInit {
     return 'Selecione o Tipo de Cliente'
   }
 
+  public labelForClientGroupField(clientGroupUrl: string): string {
+    const urlParts = clientGroupUrl.split('clients/')
+    const clientGroupId = urlParts[1][0]
+    const clientGroup = this.clientGroups.find(clientGroup => clientGroup.id === parseInt(clientGroupId))
+
+    return clientGroup?.name || ''
+  }
+
   public getClientGroups(): void {
     this.clientGroupService.getClientGroups().subscribe({
       next: (response: ClientGroup[]) => {
