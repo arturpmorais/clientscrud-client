@@ -1,7 +1,7 @@
-<nav class="navbar navbar-light bg-light px-3">
+<nav class="navbar navbar-light bg-light px-5">
   <a class="navbar-brand">CRUD - Clientes</a>
 </nav>
-<div class="container px-3" id="main-container">
+<div class="px-5" id="main-container">
   <div class="row my-3">
     <div class="col">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -25,7 +25,7 @@
           </div>
           <div class="row">
             <div *ngFor="let clientGroup of clientGroups" class="col col-xs-6 col-md-3">
-              <div class="card">
+              <div class="card" style="width: 20rem;">
                 <div class="card-body">
                   <h5 class="card-title">{{ clientGroup.name }}</h5>
                   <h6 class="card-subtitle mb-2 text-muted">{{ clientGroup.active ? 'Ativo' : 'Inativo' }}</h6>
@@ -104,16 +104,31 @@
           </div>
           <div class="row">
             <div *ngFor="let client of clients" class="col col-xs-6 col-md-3">
-              <div class="card">
+              <div class="card" style="width: 20rem;">
                 <div class="card-body">
                   <h5 class="card-title">{{ client.name }}</h5>
                   <h6 class="card-subtitle mb-2 text-muted">{{ client.active ? 'Ativo' : 'Inativo' }}</h6>
+                  <p class="text-muted fs-6 my-0">
+                    Tipo de Cliente:
+                  </p>
                   <p class="card-text">{{ client.documentType }}</p>
+                  <p class="text-muted fs-6 my-0">
+                    {{ labelForDocumentField('document1', client.documentType) }}:
+                  </p>
                   <p class="card-text">{{ client.document1 }}</p>
+                  <p class="text-muted fs-6 my-0">
+                    {{ labelForDocumentField('document2', client.documentType) }}:
+                  </p>
                   <p class="card-text">{{ client.document2 }}</p>
+                  <p class="text-muted fs-6 my-0">
+                    Data de Cadastro:
+                  </p>
                   <p class="card-text">{{ client.registrationDate }}</p>
-                  <p class="card-text">{{ client.clientGroup }}</p>
-                  <button (click)="onEditClientClick(client)" class="btn btn-primary my-1">
+                  <p class="text-muted fs-6 my-0">
+                    Grupo de Clientes:
+                  </p>
+                  <p class="card-text">{{ labelForClientGroupField(client._links.clientGroup.href) }}</p>
+                  <button (click)="onEditClientClick(client)" class="btn btn-primary btn-block my-1">
                     Selecionar para edição
                   </button>
                   &nbsp;
@@ -161,7 +176,7 @@
                       <input type="text" ngModel name="document2" class="form-control" id="document2" required />
                     </div>
                     <div class="mb-3">
-                      <label for="registrationDate" class="form-label">Data</label>
+                      <label for="registrationDate" class="form-label">Data de Cadastro</label>
                       <input type="date" ngModel name="registrationDate" class="form-control" id="registrationDate" required />
                     </div>
                     <div class="mb-3">
@@ -207,7 +222,7 @@
                       <input type="text" ngModel="{{ currentClient?.document2 }}" name="document2" class="form-control" id="document2" required />
                     </div>
                     <div class="mb-3">
-                      <label for="registrationDate" class="form-label">Data</label>
+                      <label for="registrationDate" class="form-label">Data de Cadastro</label>
                       <input type="date" ngModel="{{ currentClient?.registrationDate }}" name="registrationDate" class="form-control" id="registrationDate" required />
                     </div>
                     <div class="mb-3">
