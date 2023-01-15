@@ -1,5 +1,10 @@
 export interface ClientGroup {
     id: number,
     name: string,
-    active: boolean
+    active: boolean,
+    _links: {
+        self: {
+            href: string
+        }
+    }
 }

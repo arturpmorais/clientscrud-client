@@ -6,5 +6,13 @@ export interface Client {
     document2: string,
     registrationDate: Date,
     clientGroup: string,
-    active: boolean
+    active: boolean,
+    _links: {
+        self: {
+            href: string
+        }
+        clientGroup: {
+            href: string
+        }
+    }
 }
