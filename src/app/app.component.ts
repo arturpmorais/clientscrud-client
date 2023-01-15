@@ -71,13 +71,13 @@ export class AppComponent implements OnInit {
         button.setAttribute('data-bs-target', '#deleteClientGroupModal');
         break
     }
-
-    console.log('currentClientGroup:')
-    console.log(this.currentClientGroup)
-    console.log('mode:' + mode)
     
     container.appendChild(button);
     button.click();
+  }
+
+  public onEditClientGroupClick(clientGroup: ClientGroup | null) {
+    this.currentClientGroup = clientGroup;
   }
 
   public onAddClientGroup(addClientGroupForm: NgForm): void {
