@@ -111,7 +111,10 @@ export class AppComponent implements OnInit {
         addClientForm.reset();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        if (error.status === 409)
+          alert('Conflito: verifique se o CPF/CNPJ já foi cadastrado.')
+        else
+          alert(error.message);
       }
     );
   }
@@ -145,6 +148,7 @@ export class AppComponent implements OnInit {
           this.getClientGroups();
         },
         (error: HttpErrorResponse) => {
+          console.log(error)
           alert(error.message);
         }
       );
