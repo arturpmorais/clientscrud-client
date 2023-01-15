@@ -18,12 +18,12 @@ export class ClientService {
       map(response => response._embedded.clients)
     );
 
-  public addClient = (clientGroup: Client): Observable<Client> => 
-    this.http.post<Client>(`${this.apiServerUrl}/clients`, clientGroup);
+  public addClient = (client: Client): Observable<Client> => 
+    this.http.post<Client>(`${this.apiServerUrl}/clients`, client);
 
-  public updateClient = (clientGroup: Client): Observable<Client> => 
-    this.http.put<Client>(`${this.apiServerUrl}/clients`, clientGroup);
+  public updateClient = (client: Client): Observable<Client> => 
+    this.http.put<Client>(`${this.apiServerUrl}/clients${client.id}`, client);
 
-  public deleteClient = (clientGroupId: number): Observable<void> => 
-    this.http.delete<void>(`${this.apiServerUrl}/clients/${clientGroupId}`);
+  public deleteClient = (clientId: number): Observable<void> => 
+    this.http.delete<void>(`${this.apiServerUrl}/clients/${clientId}`);
 }
