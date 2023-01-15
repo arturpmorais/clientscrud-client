@@ -153,11 +153,11 @@
                       </select>
                     </div>
                     <div class="mb-3">
-                      <label for="document1" class="form-label">Documento 1</label>
+                      <label for="document1" class="form-label">{{ labelForDocumentField('document1', addClientForm.value.documentType) }}</label>
                       <input type="text" ngModel name="document1" class="form-control" id="document1" required />
                     </div>
                     <div class="mb-3">
-                      <label for="document2" class="form-label">Documento 2</label>
+                      <label for="document2" class="form-label">{{ labelForDocumentField('document2', addClientForm.value.documentType) }}</label>
                       <input type="text" ngModel name="document2" class="form-control" id="document2" required />
                     </div>
                     <div class="mb-3">
@@ -199,11 +199,11 @@
                       </select>
                     </div>
                     <div class="mb-3">
-                      <label for="document1" class="form-label">Documento 1</label>
+                      <label for="document1" class="form-label">{{ labelForDocumentField('document1', addClientForm.value.documentType) }}</label>
                       <input type="text" ngModel="{{ currentClient?.document1 }}" name="document1" class="form-control" id="document1" required />
                     </div>
                     <div class="mb-3">
-                      <label for="document2" class="form-label">Documento 2</label>
+                      <label for="document2" class="form-label">{{ labelForDocumentField('document2', addClientForm.value.documentType) }}</label>
                       <input type="text" ngModel="{{ currentClient?.document2 }}" name="document2" class="form-control" id="document2" required />
                     </div>
                     <div class="mb-3">
