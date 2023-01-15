@@ -1,7 +1,105 @@
-<h1>AppComponent</h1>
-<div class="row">
-  <div *ngFor="let clientGroup of clientGroups" class="col">
-    <h5>Nome: {{ clientGroup.name }}</h5>
-    <h6>Ativo: {{ clientGroup.active.toString() }}</h6>
+<nav class="navbar navbar-light bg-light px-3">
+  <a class="navbar-brand">CRUD - Clientes</a>
+</nav>
+<div class="container" id="main-container">
+  <div class="row my-3">
+    <h3>Grupos de Clientes:</h3>
+    
+    <div>
+      <button class="btn btn-outline-primary" (click)="onOpenClientGroupModal(null, 'add')">
+        Adicionar Grupo de Clientes
+      </button>
+    </div>
+  
+    <div *ngFor="let clientGroup of clientGroups" class="col col-xs-6 col-md-3">
+      <h5>Nome: {{ clientGroup.name }}</h5>
+      <h6>Ativo: {{ clientGroup.active.toString() }}</h6>
+      <button (click)="onOpenClientGroupModal(clientGroup, 'edit')" class="btn btn-primary">
+        Editar
+      </button>
+      &nbsp;
+      <button (click)="onDeleteClientGroup(clientGroup)" class="btn btn-danger">
+        Deletar
+      </button>
+    </div>
   </div>
+  
+  <div class="row my-3">    
+    <h3>Clientes:</h3>
+
+    <div>
+      <button class="btn btn-block btn-outline-primary">
+        Adicionar Cliente
+      </button>
+    </div>
+  
+    <div *ngFor="let client of clients" class="col col-xs-6 col-md-3">
+      <h5>Nome: {{ client.name }}</h5>
+      <h6>Ativo: {{ client.active.toString() }}</h6>
+      <button class="btn btn-primary">
+        Editar
+      </button>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addClientGroupModal" tabindex="-1" role="dialog" aria-labelledby="addClientGroupModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Adicionar Grupo de Clientes</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #addClientGroupForm="ngForm" (ngSubmit)="onAddClientGroup(addClientGroupForm)">
+              <div class="mb-3">
+                <label for="name" class="form-label">Nome</label>
+                <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Nome" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="active">Ativo</label>
+                <select class="form-select" ngModel name="active" id="active" required>
+                  <option [ngValue]="true">Sim</option>
+                  <option [ngValue]="false">Não</option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="addClientGroupModalCloseButton" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button [disabled]="addClientGroupForm.invalid" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Salvar</button>
+              </div>
+            </form>
+         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="modal fade" id="updateClientGroupModal" tabindex="-1" role="dialog" aria-labelledby="updateClientGroupModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Editar Grupo de Clientes</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #updateClientGroupForm="ngForm">
+              <div class="mb-3">
+                <label for="name" class="form-label">Nome</label>
+                <input type="text" ngModel="{{ currentClientGroup?.name }}" name="name" class="form-control" id="name" placeholder="Nome" required>
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" ngModel="{{ currentClientGroup?.active }}" name="active" id="active" required>
+                <label class="form-check-label" for="active">Ativo</label>
+              </div>
+              <div class="modal-footer">
+                <button type="button" id="updateClientGroupModalCloseButton" class="btn btn-secondary" data-bs-dismiss="modal2">Fechar</button>
+                <button (click)="onUpdateClientGroup(updateClientGroupForm.value)" data-bs-dismiss="modal" type="submit" class="btn btn-primary">Salvar</button>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div> -->
+
 </div>
