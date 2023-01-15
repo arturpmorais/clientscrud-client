@@ -1,192 +1,240 @@
 <nav class="navbar navbar-light bg-light px-3">
   <a class="navbar-brand">CRUD - Clientes</a>
 </nav>
-<div class="px-3" id="main-container">
+<div class="container px-3" id="main-container">
   <div class="row my-3">
     <div class="col">
-
-      <div class="row">
-        <div class="col">
-          <h3>Grupos de Clientes</h3>
-        </div>
-      </div>
-
-      <div class="row">
-        <div *ngFor="let clientGroup of clientGroups" class="col col-xs-6 col-md-3">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ clientGroup.name }}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{ clientGroup.active ? 'Ativo' : 'Inativo' }}</h6>
-              <button (click)="onEditClientGroupClick(clientGroup)" class="btn btn-primary">
-                Selecionar para edição
-              </button>
-              &nbsp;
-              <button (click)="onDeleteClientGroup(clientGroup)" class="btn btn-danger">
-                Deletar
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row my-2">
-        <div class="col">
-          <h5>Gerenciar</h5>
-          <div class="d-flex align-items-start">
-            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-              <button class="nav-link active" id="v-pills-v-pills-add-client-group-tab" data-bs-toggle="pill" data-bs-target="#v-pills-add-client-group" type="button" role="tab" aria-controls="v-pills-add-client-group" aria-selected="true">
-                Adicionar Grupo de Clientes
-              </button>
-              <button class="nav-link" id="v-pills-update-client-group-tab" data-bs-toggle="pill" data-bs-target="#v-pills-update-client-group" type="button" role="tab" aria-controls="v-pills-update-client-group" aria-selected="false">
-                Editar Grupo de Clientes selecionado
-              </button>
-            </div>
-            <div class="tab-content" id="v-pills-tabContent">
-              <div class="tab-pane fade show active" id="v-pills-add-client-group" role="tabpanel" aria-labelledby="v-pills-v-pills-add-client-group-tab">
-                <form #addClientGroupForm="ngForm" (ngSubmit)="onAddClientGroup(addClientGroupForm)">
-                  <div class="mb-3">
-                    <label for="name" class="form-label">Nome</label>
-                    <input type="text" ngModel name="name" class="form-control" id="name" required />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="active">Ativo</label>
-                    <select class="form-select" ngModel name="active" id="active" required>
-                      <option [ngValue]="true">Sim</option>
-                      <option [ngValue]="false">Não</option>
-                    </select>
-                  </div>
-                  <div class="modal-footer">
-                    <button [disabled]="addClientGroupForm.invalid" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Salvar</button>
-                  </div>
-                </form>
-              </div>
-              <div class="tab-pane fade" id="v-pills-update-client-group" role="tabpanel" aria-labelledby="v-pills-update-client-group-tab">
-                <form #updateClientGroupForm="ngForm">
-                  <input type="hidden" ngModel="{{ currentClientGroup?.id }}" name="id" id="id" />
-                  <div class="mb-3">
-                    <label for="name" class="form-label">Nome</label>
-                    <input type="text" ngModel="{{ currentClientGroup?.name }}" name="name" class="form-control" id="name" required />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="active">Ativo</label>
-                    <select class="form-select" ngModel name="active" id="active" required>
-                      <option [ngValue]="true">Sim</option>
-                      <option [ngValue]="false">Não</option>
-                    </select>
-                  </div>
-                  <div class="modal-footer">
-                    <button (click)="onUpdateClientGroup(updateClientGroupForm.value)" data-bs-dismiss="modal" type="submit" class="btn btn-primary">Salvar</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-          <!-- <button class="btn btn-outline-primary" (click)="onOpenClientGroupModal(null, 'add')">
-            Adicionar Grupo de Clientes
-          </button> -->
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row my-3">
-    <div class="col">
-      <div class="row">
-        <div class="col">
-          <h3>Clientes</h3>
-        </div>
-      </div>
-      <div class="row my-2">
-        <div class="col">
-          <button class="btn btn-block btn-outline-primary">
-            Adicionar Cliente
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="client-groups-tab" data-bs-toggle="tab" data-bs-target="#client-groups" type="button" role="tab" aria-controls="client-groups" aria-selected="true">
+            Grupos de Clientes
           </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="clients-tab" data-bs-toggle="tab" data-bs-target="#clients" type="button" role="tab" aria-controls="clients" aria-selected="false">
+            Clientes
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="client-groups" role="tabpanel" aria-labelledby="client-groups-tab">
+          <div class="row py-3">
+            <div class="col">
+              <h3>Grupos de Clientes</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div *ngFor="let clientGroup of clientGroups" class="col col-xs-6 col-md-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ clientGroup.name }}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{ clientGroup.active ? 'Ativo' : 'Inativo' }}</h6>
+                  <button (click)="onEditClientGroupClick(clientGroup)" class="btn btn-primary my-1">
+                    Selecionar para edição
+                  </button>
+                  &nbsp;
+                  <button (click)="onDeleteClientGroup(clientGroup)" class="btn btn-danger">
+                    Deletar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row my-2">
+            <div class="col">
+              <ul class="nav nav-pills my-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="pills-add-client-group-tab" data-bs-toggle="pill" data-bs-target="#pills-add-client-group" type="button" role="tab" aria-controls="pills-add-client-group" aria-selected="true">
+                    Adicionar Grupo de Clientes
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="pills-update-client-group-tab" data-bs-toggle="pill" data-bs-target="#pills-update-client-group" type="button" role="tab" aria-controls="pills-update-client-group" aria-selected="false">
+                    Editar Grupo de Clientes selecionado
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-add-client-group" role="tabpanel" aria-labelledby="pills-add-client-group-tab">
+                  <form #addClientGroupForm="ngForm" (ngSubmit)="onAddClientGroup(addClientGroupForm)">
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Nome</label>
+                      <input type="text" ngModel name="name" class="form-control" id="name" required />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="active">Ativo</label>
+                      <select class="form-select" ngModel name="active" id="active" required>
+                        <option [ngValue]="true">Sim</option>
+                        <option [ngValue]="false">Não</option>
+                      </select>
+                    </div>
+                    <div class="modal-footer">
+                      <button [disabled]="addClientGroupForm.invalid" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Salvar</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="tab-pane fade" id="pills-update-client-group" role="tabpanel" aria-labelledby="pills-update-client-group-tab">
+                  <form #updateClientGroupForm="ngForm">
+                    <input type="hidden" ngModel="{{ currentClientGroup?.id }}" name="id" id="id" />
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Nome</label>
+                      <input type="text" ngModel="{{ currentClientGroup?.name }}" name="name" class="form-control" id="name" required />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="active">Ativo</label>
+                      <select class="form-select" ngModel name="active" id="active" required>
+                        <option [ngValue]="true">Sim</option>
+                        <option [ngValue]="false">Não</option>
+                      </select>
+                    </div>
+                    <div class="modal-footer">
+                      <button (click)="onUpdateClientGroup(updateClientGroupForm.value)" data-bs-dismiss="modal" type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div *ngFor="let client of clients" class="col col-xs-6 col-md-3">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ client.name }}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{ client.active ? 'Ativo' : 'Inativo' }}</h6>
-              <p class="card-text">{{ client.documentType }}</p>
-              <p class="card-text">{{ client.document1 }}</p>
-              <p class="card-text">{{ client.document2 }}</p>
-              <p class="card-text">{{ client.registrationDate }}</p>
-              <p class="card-text">{{ client.clientGroup }}</p>
-              <!-- <button (click)="onOpenClientGroupModal(clientGroup, 'edit')" class="btn btn-primary">
-                Editar
-              </button>
-              &nbsp;
-              <button (click)="onDeleteClientGroup(clientGroup)" class="btn btn-danger">
-                Deletar
-              </button> -->
+        <div class="tab-pane fade" id="clients" role="tabpanel" aria-labelledby="clients-tab">
+          <div class="row py-3">
+            <div class="col">
+              <h3>Clientes</h3>
+            </div>
+          </div>
+          <div class="row">
+            <div *ngFor="let client of clients" class="col col-xs-6 col-md-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ client.name }}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{ client.active ? 'Ativo' : 'Inativo' }}</h6>
+                  <p class="card-text">{{ client.documentType }}</p>
+                  <p class="card-text">{{ client.document1 }}</p>
+                  <p class="card-text">{{ client.document2 }}</p>
+                  <p class="card-text">{{ client.registrationDate }}</p>
+                  <p class="card-text">{{ client.clientGroup }}</p>
+                  <button (click)="onEditClientClick(client)" class="btn btn-primary my-1">
+                    Selecionar para edição
+                  </button>
+                  &nbsp;
+                  <button (click)="onDeleteClient(client)" class="btn btn-danger">
+                    Deletar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row my-2">
+            <div class="col">
+              <ul class="nav nav-pills my-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="pills-add-client-tab" data-bs-toggle="pill" data-bs-target="#pills-add-client" type="button" role="tab" aria-controls="pills-add-client" aria-selected="true">
+                    Adicionar Cliente
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="pills-update-client-tab" data-bs-toggle="pill" data-bs-target="#pills-update-client" type="button" role="tab" aria-controls="pills-update-client" aria-selected="false">
+                    Editar Cliente selecionado
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-add-client" role="tabpanel" aria-labelledby="pills-add-client-tab">
+                  <form #addClientForm="ngForm" (ngSubmit)="onAddClient(addClientForm)">
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Nome</label>
+                      <input type="text" ngModel name="name" class="form-control" id="name" required />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="documentType">Tipo de Cliente</label>
+                      <select class="form-select" ngModel name="documentType" id="documentType" required>
+                        <option [ngValue]="'pf'">Pessoa Física</option>
+                        <option [ngValue]="'pj'">Pessoa Jurídica</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="document1" class="form-label">Documento 1</label>
+                      <input type="text" ngModel name="document1" class="form-control" id="document1" required />
+                    </div>
+                    <div class="mb-3">
+                      <label for="document2" class="form-label">Documento 2</label>
+                      <input type="text" ngModel name="document2" class="form-control" id="document2" required />
+                    </div>
+                    <div class="mb-3">
+                      <label for="registrationDate" class="form-label">Data</label>
+                      <input type="date" ngModel name="registrationDate" class="form-control" id="registrationDate" required />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="active">Grupo de Clientes</label>
+                      <select class="form-select" ngModel name="active" id="active" required>
+                        <option *ngFor="let clientGroup of clientGroups" [ngValue]="clientGroup._links.self.href">
+                          {{ clientGroup.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="active">Ativo</label>
+                      <select class="form-select" ngModel name="active" id="active" required>
+                        <option [ngValue]="true">Sim</option>
+                        <option [ngValue]="false">Não</option>
+                      </select>
+                    </div>
+                    <div class="modal-footer">
+                      <button [disabled]="addClientForm.invalid" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Salvar</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="tab-pane fade" id="pills-update-client" role="tabpanel" aria-labelledby="pills-update-client-tab">
+                  <form #updateClientForm="ngForm">
+                    <input type="hidden" ngModel="{{ currentClient?.id }}" name="id" id="id" />
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Nome</label>
+                      <input type="text" ngModel="{{ currentClient?.name }}" name="name" class="form-control" id="name" required />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="documentType">Tipo de Cliente</label>
+                      <select class="form-select" ngModel="{{ currentClient?.documentType }}" name="documentType" id="documentType" required>
+                        <option [ngValue]="'pf'">Pessoa Física</option>
+                        <option [ngValue]="'pj'">Pessoa Jurídica</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="document1" class="form-label">Documento 1</label>
+                      <input type="text" ngModel="{{ currentClient?.document1 }}" name="document1" class="form-control" id="document1" required />
+                    </div>
+                    <div class="mb-3">
+                      <label for="document2" class="form-label">Documento 2</label>
+                      <input type="text" ngModel="{{ currentClient?.document2 }}" name="document2" class="form-control" id="document2" required />
+                    </div>
+                    <div class="mb-3">
+                      <label for="registrationDate" class="form-label">Data</label>
+                      <input type="date" ngModel="{{ currentClient?.registrationDate }}" name="registrationDate" class="form-control" id="registrationDate" required />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="clientGroup">Grupo de Clientes</label>
+                      <select class="form-select" ngModel="{{ currentClient?.clientGroup }}" name="clientGroup" id="clientGroup" required>
+                        <option *ngFor="let clientGroup of clientGroups" [ngValue]="clientGroup._links.self.href">
+                          {{ clientGroup.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label" for="active">Ativo</label>
+                      <select class="form-select" ngModel="{{ currentClient?.active }}" name="active" id="active" required>
+                        <option [ngValue]="true" selected="">Sim</option>
+                        <option [ngValue]="false">Não</option>
+                      </select>
+                    </div>
+                    <div class="modal-footer">
+                      <button (click)="onUpdateClient(updateClientForm.value)" data-bs-dismiss="modal" type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- <div class="modal fade" id="addClientGroupModal" tabindex="-1" role="dialog" aria-labelledby="addClientGroupModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title">Adicionar Grupo de Clientes</h5>
-            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <div class="modal-body"> -->
-            <form #addClientGroupForm="ngForm" (ngSubmit)="onAddClientGroup(addClientGroupForm)">
-              <div class="mb-3">
-                <label for="name" class="form-label">Nome</label>
-                <input type="text" ngModel name="name" class="form-control" id="name" placeholder="Nome" required />
-              </div>
-              <div class="mb-3">
-                <label class="form-label" for="active">Ativo</label>
-                <select class="form-select" ngModel name="active" id="active" required>
-                  <option [ngValue]="true">Sim</option>
-                  <option [ngValue]="false">Não</option>
-                </select>
-              </div>
-              <div class="modal-footer">
-                <button type="button" id="addClientGroupModalCloseButton" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button [disabled]="addClientGroupForm.invalid" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Salvar</button>
-              </div>
-            </form>
-         <!-- </div>
-      </div>
-    </div>
-  </div> -->
-
-  <div class="modal fade" id="updateClientGroupModal" tabindex="-1" role="dialog" aria-labelledby="updateClientGroupModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title">Editar Grupo de Clientes</h5>
-            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-         </div>
-         <div class="modal-body">
-            <form #updateClientGroupForm="ngForm">
-              <input type="hidden" ngModel="{{ currentClientGroup?.id }}" name="id" id="id" />
-              <div class="mb-3">
-                <label for="name" class="form-label">Nome</label>
-                <input type="text" ngModel="{{ currentClientGroup?.name }}" name="name" class="form-control" id="name" placeholder="Nome" required />
-              </div>
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" ngModel="{{ currentClientGroup?.active }}" name="active" id="active" required >
-                <label class="form-check-label" for="active">Ativo</label>
-              </div>
-              <div class="modal-footer">
-                <button type="button" id="updateClientGroupModalCloseButton" class="btn btn-secondary" data-bs-dismiss="modal2">Fechar</button>
-                <button (click)="onUpdateClientGroup(updateClientGroupForm.value)" data-bs-dismiss="modal" type="submit" class="btn btn-primary">Salvar</button>
-              </div>
-            </form>
-        </div>
-      </div>
-    </div>
-
 </div>
