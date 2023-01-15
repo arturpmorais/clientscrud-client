@@ -77,26 +77,60 @@ export class AppComponent implements OnInit {
   }
 
   public onEditClientGroupClick(clientGroup: ClientGroup | null) {
+    const button = <HTMLElement>document.getElementById('pills-update-client-group-tab')
+
     this.currentClientGroup = clientGroup;
+
+    button.click()
+  }
+
+  public onEditClientClick(client: Client | null) {
+    const button = <HTMLElement>document.getElementById('pills-update-client-tab')
+
+    this.currentClient = client;
+
+    button.click()
   }
 
   public onAddClientGroup(addClientGroupForm: NgForm): void {
     this.clientGroupService.addClientGroup(addClientGroupForm.value).subscribe(
-      (response: ClientGroup) => {
+      () => {
         this.getClientGroups();
         addClientGroupForm.reset();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
-        addClientGroupForm.reset();
+      }
+    );
+  }
+
+  public onAddClient(addClientForm: NgForm): void {
+    this.clientService.addClient(addClientForm.value).subscribe(
+      () => {
+        this.getClients();
+        addClientForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
       }
     );
   }
 
   public onUpdateClientGroup(clientGroup: ClientGroup): void {
     this.clientGroupService.updateClientGroup(clientGroup).subscribe(
-      (response: ClientGroup) => {
+      () => {
         this.getClientGroups();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public onUpdateClient(client: Client): void {
+    this.clientService.updateClient(client).subscribe(
+      () => {
+        this.getClients();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -109,6 +143,18 @@ export class AppComponent implements OnInit {
       this.clientGroupService.deleteClientGroup(clientGroup.id).subscribe(
         () => {
           this.getClientGroups();
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+  }
+
+  public onDeleteClient(client: Client): void {
+    if (confirm('Tem certeza de que deseja deletar este Grupo de Clientes?'))
+      this.clientService.deleteClient(client.id).subscribe(
+        () => {
+          this.getClients();
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
