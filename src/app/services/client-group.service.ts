@@ -22,7 +22,7 @@ export class ClientGroupService {
     this.http.post<ClientGroup>(`${this.apiServerUrl}/clientGroups`, clientGroup);
 
   public updateClientGroup = (clientGroup: ClientGroup): Observable<ClientGroup> => 
-    this.http.put<ClientGroup>(`${this.apiServerUrl}/clientGroups`, clientGroup);
+    this.http.put<ClientGroup>(`${this.apiServerUrl}/clientGroups/${clientGroup.id}`, clientGroup);
 
   public deleteClientGroup = (clientGroupId: number): Observable<void> => 
     this.http.delete<void>(`${this.apiServerUrl}/clientGroups/${clientGroupId}`);
