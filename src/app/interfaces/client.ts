@@ -1,4 +1,5 @@
 export interface Client {
+    id: number,
     name: string,
     documentType: string,
     document: string,
