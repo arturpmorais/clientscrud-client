@@ -58,6 +58,12 @@ export class AppComponent implements OnInit {
     return clientGroup?.name || ''
   }
 
+  public formatDateToBrazilianStandard(date: Date): string {
+    const dateObject = new Date(date)
+
+    return dateObject.toLocaleDateString('pt-BR')
+  }
+
   public getClientGroups(): void {
     this.clientGroupService.getClientGroups().subscribe({
       next: (response: ClientGroup[]) => {
