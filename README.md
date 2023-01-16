@@ -1,6 +1,6 @@
-Simple Angular client for the clientscrud-api project, using Bootstrap for CSS and HTML components.
-
 # ClientscrudClient
+
+Simple Angular client for the clientscrud-api project, using Bootstrap for CSS and HTML components
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.1.
 
