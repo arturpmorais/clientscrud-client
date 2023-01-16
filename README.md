@@ -1,4 +1,4 @@
-# ClientscrudClient
+# clientscrud-client
 
 Simple Angular client for the clientscrud-api project, using Bootstrap for CSS and HTML components
 
